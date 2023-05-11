@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Stack And Shoot</string>
+    <string name="stack_game_txt">Stack blocks</string>
+    <string name="shoot_game_txt">Eliminate enemies</string>
+    <string name="exit_txt">Quit</string>
+    <string name="back_to_menu_txt">Menu</string>
+    <string name="resume">Resume</string>
 </resources>

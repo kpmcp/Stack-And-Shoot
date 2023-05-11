@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainMenuActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextureView
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </TextureView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/play_stack_game_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stack_game_txt"
+        android:background="@drawable/btn_stroke_pressed_w"
+        android:layout_marginBottom="400dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="26dp"
+        tools:ignore="MissingConstraints">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/play_shoot_game_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/shoot_game_txt"
+        android:background="@drawable/btn_stroke_pressed_w"
+        android:layout_marginBottom="250dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="26dp"
+        tools:ignore="MissingConstraints">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/exit_btn"
+        android:layout_width="match_parent"
+        android:background="@drawable/btn_stroke_pressed_w"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_txt"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="26dp"
+        tools:ignore="MissingConstraints">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="246dp"
+        android:layout_height="102dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="72dp" />
+
+
+    <!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
+<!--    </LinearLayout>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="280dp"-->
+<!--            android:text="Eleminate enimies"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="26dp">-->
+<!--        </TextView>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="360dp"-->
+<!--            android:text="Exit"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="26dp">-->
+<!--        </TextView>-->
+</androidx.constraintlayout.widget.ConstraintLayout>
