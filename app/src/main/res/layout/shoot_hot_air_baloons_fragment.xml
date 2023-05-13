@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_alignParentEnd="true"
-        android:text="Enemies left: 0"
-        android:id="@+id/balloonsCntTxt"/>
+        android:text="Enemies left: 30"
+        android:id="@+id/EnemiesLeftTxt"/>
 
     <View
         android:layout_width="72dp"
@@ -37,7 +37,22 @@
     <View
         android:layout_width="4dp"
         android:layout_height="72dp"
-        android:background="#7a000000"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:background="#7a000000" />
+
+    <ImageButton
+        android:id="@+id/shoot_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="720dp"
+        android:background="@drawable/btn_stroke_pressed_w"
+        android:src="@drawable/aim"></ImageButton>
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:srcCompat="@drawable/aim" />-->
 
 </RelativeLayout>
