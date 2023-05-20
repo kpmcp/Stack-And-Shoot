@@ -14,19 +14,12 @@
 
     <ImageButton
         android:id="@+id/pause_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_margin="10dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
         android:background="@drawable/btn_stroke_pressed_w"
         app:srcCompat="@android:drawable/ic_media_pause" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_alignParentEnd="true"
-        android:text="Enemies left: 30"
-        android:id="@+id/EnemiesLeftTxt"/>
 
     <View
         android:layout_width="72dp"

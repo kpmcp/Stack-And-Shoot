@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".StackGameActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/arStackFragment"
+        android:name="com.example.stackandshoot.StackFragment" />
+    <ImageButton
+        android:id="@+id/pause_btn"
+        android:layout_width="60dp"
+        android:layout_margin="10dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_stroke_pressed_w"
+        android:scaleType="fitXY"
+        app:srcCompat="@android:drawable/ic_media_pause" />
+
+</RelativeLayout>

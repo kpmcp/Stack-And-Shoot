@@ -7,6 +7,8 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
@@ -30,9 +32,11 @@ import com.google.ar.sceneform.rendering.Texture;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private SoundPool shootSoundPool;
+    private int sound;
     private final int COUNT_OF_ENEMIES = 30;
     private int enemiesLeft = 30;
-    TextView enemiesLeftTxt;
     private ModelRenderable bullet;
     private ImageButton pauseBtn, shootBtn;
     private Point point;
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Camera camera;
     private boolean isPaused;
 
-    Dialog pauseMenu;
+    Dialog pauseMenu, winMenu;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.shoot_hot_air_baloons_fragment);
 
+        loadSound();
+
         BaloonsFragment baloonsFragment = (BaloonsFragment) getSupportFragmentManager().findFragmentById(R.id.arFragment);
 
         scene = baloonsFragment.getArSceneView().getScene();
         camera = scene.getCamera();
-
-        enemiesLeftTxt = findViewById(R.id.EnemiesLeftTxt);
 
         pauseBtn = findViewById(R.id.pause_btn);
         shootBtn = findViewById(R.id.shoot_btn);
@@ -69,8 +73,34 @@ public class MainActivity extends AppCompatActivity {
         pauseMenu.getWindow().setBackgroundDrawable(getDrawable(R.drawable.pause_background));
         pauseMenu.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        winMenu = new Dialog(MainActivity.this);
+        winMenu.setContentView(R.layout.win_menu);
+        winMenu.setTitle("Win");
+        winMenu.getWindow().setBackgroundDrawable(getDrawable(R.drawable.pause_background));
+        winMenu.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 600);
+        winMenu.setCancelable(false);
+
+        ImageButton restartBtn = winMenu.findViewById(R.id.restart_btn);
+        ImageButton backBtn = winMenu.findViewById(R.id.menu_btn);
+
         Button resumeBtn = pauseMenu.findViewById(R.id.resume_btn);
         Button backToMenuBtn = pauseMenu.findViewById(R.id.back_to_menu_btn);
+
+        restartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
         resumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        pauseMenu.setCancelable(false);
 
         pauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +167,9 @@ public class MainActivity extends AppCompatActivity {
                     if (nodeInContact != null) {
 
                         enemiesLeft--;
-                        enemiesLeftTxt.setText("Enemies Left: " + enemiesLeft);
                         scene.removeChild(nodeInContact);
-
+                        shootSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
+                        checkCountOfEnemies();
 
                     }
 
@@ -158,6 +187,12 @@ public class MainActivity extends AppCompatActivity {
 
         }).start();
 
+    }
+
+    private void checkCountOfEnemies() {
+        if (this.enemiesLeft == 0) {
+            winMenu.show();
+        }
     }
 
     private void buildBulletModel() {
@@ -216,6 +251,22 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
+
+    }
+
+    private void loadSound() {
+
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .build();
+
+        shootSoundPool = new SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(audioAttributes)
+                .build();
+
+        sound = shootSoundPool.load(this, R.raw.boom_sound, 1);
 
     }
 }

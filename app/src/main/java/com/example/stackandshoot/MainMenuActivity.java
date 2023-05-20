@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Matrix;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Rational;
@@ -31,6 +33,8 @@ import com.google.ar.sceneform.Camera;
 import java.util.Objects;
 
 public class MainMenuActivity extends AppCompatActivity {
+    private SoundPool tapSoundPool;
+    private int sound;
     private Camera camera;
     private TextureView view;
     private Button exitBtn, shootGameBtn, stackGameBtn;
@@ -41,6 +45,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu);
+        loadSound();
 
 //        Objects.requireNonNull(getSupportActionBar()).hide();
 
@@ -53,6 +58,7 @@ public class MainMenuActivity extends AppCompatActivity {
         shootGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tapSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 view.getContext().startActivity(intent);
             }
@@ -61,13 +67,16 @@ public class MainMenuActivity extends AppCompatActivity {
         stackGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                tapSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
+                Intent intent = new Intent(view.getContext(), StackGameActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
 
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tapSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
                 Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                 homeIntent.addCategory(Intent.CATEGORY_HOME);
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -132,5 +141,21 @@ public class MainMenuActivity extends AppCompatActivity {
 
         matrix.postRotate((float) rotationD, cx, cy);
         view.setTransform(matrix);
+    }
+
+    private void loadSound() {
+
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .build();
+
+        tapSoundPool = new SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(audioAttributes)
+                .build();
+
+        sound = tapSoundPool.load(this, R.raw.single_tap, 1);
+
     }
 }
