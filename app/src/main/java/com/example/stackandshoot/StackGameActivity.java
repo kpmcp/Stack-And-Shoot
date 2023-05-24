@@ -46,6 +46,7 @@ public class StackGameActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stack_fragment);
+        loadSound();
 
         stackFragment = (StackFragment) getSupportFragmentManager().findFragmentById(R.id.arStackFragment);
 
