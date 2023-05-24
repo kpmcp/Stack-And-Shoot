@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "165834290481",
+    "project_id": "stackandshoot-bf750",
+    "storage_bucket": "stackandshoot-bf750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165834290481:android:ef20b7b7962471be08ac10",
+        "android_client_info": {
+          "package_name": "com.example.stackandshoot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "165834290481-5vsd1uddlr8vpbu0036n10v62q7loesq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCidRLwaPd7NyRM7y7XuULNIr38Zzy7A5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165834290481-5vsd1uddlr8vpbu0036n10v62q7loesq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

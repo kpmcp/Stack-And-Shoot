@@ -1,7 +1,6 @@
 package com.example.stackandshoot;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 
 import com.google.ar.sceneform.Camera;
@@ -31,10 +29,12 @@ import com.google.ar.sceneform.rendering.Texture;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class ShootGameActivity extends AppCompatActivity {
 
     private SoundPool shootSoundPool;
-    private int sound;
+    private SoundPool tapSoundPool;
+    private int shootSound;
+    private int tapSound;
     private final int COUNT_OF_ENEMIES = 30;
     private int enemiesLeft = 30;
     private ModelRenderable bullet;
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
         pauseBtn = findViewById(R.id.pause_btn);
         shootBtn = findViewById(R.id.shoot_btn);
 
-        pauseMenu = new Dialog(MainActivity.this);
+        pauseMenu = new Dialog(ShootGameActivity.this);
         pauseMenu.setContentView(R.layout.pause_menu);
         pauseMenu.setTitle("Pause");
         pauseMenu.getWindow().setBackgroundDrawable(getDrawable(R.drawable.pause_background));
         pauseMenu.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        winMenu = new Dialog(MainActivity.this);
+        winMenu = new Dialog(ShootGameActivity.this);
         winMenu.setContentView(R.layout.win_menu);
         winMenu.setTitle("Win");
         winMenu.getWindow().setBackgroundDrawable(getDrawable(R.drawable.pause_background));
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         restartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                Intent intent = new Intent(ShootGameActivity.this, ShootGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                Intent intent = new Intent(ShootGameActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         resumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tapSoundPool.play(tapSound, 1f, 1f, 1, 0, 1f);
                 isPaused = false;
                 pauseMenu.dismiss();
             }
@@ -113,7 +114,8 @@ public class MainActivity extends AppCompatActivity {
         backToMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                tapSoundPool.play(tapSound, 1f, 1f, 1, 0, 1f);
+                Intent intent = new Intent(ShootGameActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
                         enemiesLeft--;
                         scene.removeChild(nodeInContact);
-                        shootSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
+                        shootSoundPool.play(shootSound, 1f, 1f, 1, 0, 1f);
                         checkCountOfEnemies();
 
                     }
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     private void addEnemies() {
         ModelRenderable
                 .builder()
-                .setSource(this, Uri.parse("balloon.sfb"))
+                .setSource(this, Uri.parse("Drone.sfb"))
                 .build()
                 .thenAccept(renderable -> {
 
@@ -255,7 +257,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadSound() {
-
         AudioAttributes audioAttributes = new AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .setUsage(AudioAttributes.USAGE_GAME)
@@ -266,7 +267,13 @@ public class MainActivity extends AppCompatActivity {
                 .setAudioAttributes(audioAttributes)
                 .build();
 
-        sound = shootSoundPool.load(this, R.raw.boom_sound, 1);
+        tapSoundPool = new SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(audioAttributes)
+                .build();
+
+        shootSound = shootSoundPool.load(this, R.raw.boom_sound, 1);
+        tapSound = tapSoundPool.load(this, R.raw.single_tap, 1);
 
     }
 }

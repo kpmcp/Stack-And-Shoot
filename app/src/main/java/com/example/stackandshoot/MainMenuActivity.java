@@ -2,12 +2,10 @@ package com.example.stackandshoot;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Matrix;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Rational;
 import android.util.Size;
 import android.view.Surface;
@@ -23,14 +21,8 @@ import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureConfig;
 import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import com.google.ar.sceneform.Scene;
 
 import com.google.ar.sceneform.Camera;
-
-import java.util.Objects;
 
 public class MainMenuActivity extends AppCompatActivity {
     private SoundPool tapSoundPool;
@@ -59,7 +51,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tapSoundPool.play(sound, 1f, 1f, 1, 0, 1f);
-                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                Intent intent = new Intent(view.getContext(), ShootGameActivity.class);
                 view.getContext().startActivity(intent);
             }
         });

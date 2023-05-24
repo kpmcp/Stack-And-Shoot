@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stack And Shoot</string>
+    <string name="app_name">Stack And Shoot AR</string>
     <string name="stack_game_txt">Stack blocks</string>
     <string name="shoot_game_txt">Eliminate enemies</string>
     <string name="exit_txt">Quit</string>

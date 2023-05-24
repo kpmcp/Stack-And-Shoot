@@ -2,6 +2,8 @@ package com.example.stackandshoot;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,9 +31,11 @@ import com.google.ar.sceneform.ux.BaseArFragment;
 import java.util.function.Consumer;
 
 public class StackGameActivity extends AppCompatActivity {
-    StackFragment stackFragment;
-    Dialog pauseMenu;
+    private StackFragment stackFragment;
+    private Dialog pauseMenu;
 
+    private SoundPool tapSoundPool;
+    private int tapSound;
     private ImageButton pauseBtn;
 
     private boolean isPaused;
@@ -62,6 +66,7 @@ public class StackGameActivity extends AppCompatActivity {
         resumeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tapSoundPool.play(tapSound, 1f, 1f, 1, 0, 1f);
                 isPaused = false;
                 pauseMenu.dismiss();
             }
@@ -70,6 +75,7 @@ public class StackGameActivity extends AppCompatActivity {
         backToMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tapSoundPool.play(tapSound, 1f, 1f, 1, 0, 1f);
                 Intent intent = new Intent(StackGameActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
@@ -116,6 +122,20 @@ public class StackGameActivity extends AppCompatActivity {
         AnchorNode anchorNode =new AnchorNode(anchor);
         anchorNode.setRenderable(modelRenderable);
         stackFragment.getArSceneView().getScene().addChild(anchorNode);
+
+    }
+    private void loadSound() {
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .build();
+
+        tapSoundPool = new SoundPool.Builder()
+                .setMaxStreams(1)
+                .setAudioAttributes(audioAttributes)
+                .build();
+
+        tapSound = tapSoundPool.load(this, R.raw.single_tap, 1);
 
     }
 }

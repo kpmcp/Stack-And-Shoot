@@ -48,8 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
-sceneform.asset('sampledata/balloon.fbx',
+sceneform.asset('sampledata/Drone.FBX',
         'default',
-        'sampledata/balloon.sfa',
-        'src/main/assets/balloon'
+        'sampledata/Drone.sfa',
+        'src/main/assets/Drone'
 )
